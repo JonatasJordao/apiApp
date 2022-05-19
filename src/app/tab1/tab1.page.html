@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
       Previsão do Tempo
     </ion-title>
@@ -8,20 +8,74 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-card>
+  <ion-card >
     <ion-card-header>
-      <ion-card-subtitle>Previsão: </ion-card-subtitle>
-      <ion-card-title class="ion-text-end">Lençóis Paulista - SP</ion-card-title>
+      <ion-card-subtitle>Previsão em: </ion-card-subtitle>
+      <ion-card-title class="ion-text-start">{{previsao?.results?.city}}
+        <span class="ion-float-end">{{previsao?.results?.temp}}°C</span>
+
+
+      </ion-card-title>
+<br>
+
+
     </ion-card-header>
 
     <ion-card-content>
-      <ion-item lines="none">
+      <ion-item lines="none" >
         <ion-label>
-          Item
+          {{previsao?.results?.description}}
         </ion-label>
-        <ion-icon name="partly-sunny-outline"></ion-icon>
+        <ion-icon [name]="buscarIcone(previsao?.results.condition_slug)"></ion-icon>
       </ion-item>
+
+      <ion-item lines="none">
+
+        <ion-label>
+         {{previsao?.results?.humidity}}% de umidade
+
+        </ion-label>
+        <ion-icon name="water-outline"></ion-icon>
+
+      </ion-item>
+
+
     </ion-card-content>
   </ion-card>
+
+
+
+  <ion-list lines="full">
+    <ion-item-divider color="primary">
+      <ion-label>
+        próximos dias:
+      </ion-label>
+    </ion-item-divider>
+
+
+    <ion-item *ngFor="let dia of previsao?.results?.forecast">
+
+      <ion-label>
+        data:
+        <br>
+        {{dia.date}}
+      </ion-label>
+      <ion-label class="max">
+        máxima:
+        <br>
+        {{dia.max}}°C
+      </ion-label>
+      <ion-label class="min">
+        minima:
+        <br>
+        {{dia.min}}°C</ion-label>
+      <ion-icon [name]="buscarIcone(previsao?.results.condition_slug)"></ion-icon>
+    </ion-item>
+
+
+
+
+
+  </ion-list>
 
 </ion-content>
